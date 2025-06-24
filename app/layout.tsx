@@ -1,5 +1,5 @@
 import "./globals.css";
-import "leaflet/dist/leaflet.css"; // está bien importado aquí
+import "leaflet/dist/leaflet.css";
 
 export const metadata = {
   title: "Mapa con distancia",
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body className="bg-background text-foreground">{children}</body>
     </html>
   );
 }

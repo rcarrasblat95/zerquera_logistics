@@ -1,27 +1,37 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
+/* 🌙 Modo claro (por defecto) */
 :root {
   --background: #ffffff;
+  --surface: #f5f5f5;
+  --primary: #6200ee;
+  --secondary: #03dac6;
+  --error: #b00020;
   --foreground: #171717;
-}
+  --text-primary: #171717;
+  --text-secondary: #5f5f5f;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* 🌚 Modo oscuro automático según el sistema */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #121212;
+    --surface: #1e1e1e;
+    --primary: #bb86fc;
+    --secondary: #03dac6;
+    --error: #cf6679;
     --foreground: #ededed;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans), Arial, sans-serif;
 }

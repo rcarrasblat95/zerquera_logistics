@@ -1,4 +1,3 @@
-// app/components/MapClient.tsx
 "use client";
 
 import {
@@ -60,7 +59,9 @@ export default function MapClient() {
     if (data && data.length > 0) {
       const lat = parseFloat(data[0].lat);
       const lon = parseFloat(data[0].lon);
-      mapRef.current?.flyTo([lat, lon], 14);
+      const coord: [number, number] = [lat, lon];
+      mapRef.current?.flyTo(coord, 14);
+      setPickup(coord);
     } else {
       alert("Dirección no encontrada");
     }
@@ -102,8 +103,8 @@ export default function MapClient() {
   }, [pickup, dropoff]);
 
   return (
-    <div className="h-screen w-full">
-      <div className="p-4 bg-white shadow z-10 relative">
+    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center justify-center">
+      <div className="p-4 shadow z-10 relative bg-background text-foreground border-b border-gray-700 w-full max-w-3xl">
         <h2 className="text-lg font-bold mb-2">Buscar dirección:</h2>
         <div className="relative">
           <div className="flex gap-2">
@@ -115,27 +116,29 @@ export default function MapClient() {
                 fetchSuggestions(e.target.value);
               }}
               placeholder="Ej: Times Square, NY"
-              className="border border-gray-300 p-2 rounded w-full"
+              className="border border-gray-600 bg-background text-foreground p-2 rounded w-full"
             />
             <button
               onClick={handleSearch}
-              className="bg-blue-600 text-white px-4 py-2 rounded"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
             >
               Buscar
             </button>
           </div>
 
-          <ul className="absolute bg-white shadow rounded w-full mt-1 z-20">
+          <ul className="absolute bg-background text-foreground shadow rounded w-full mt-1 z-20">
             {suggestions.map((sug, index) => (
               <li
                 key={index}
-                className="p-2 hover:bg-gray-100 cursor-pointer"
+                className="p-2 hover:bg-gray-700 cursor-pointer"
                 onClick={() => {
                   const lat = parseFloat(sug.lat);
                   const lon = parseFloat(sug.lon);
-                  mapRef.current?.flyTo([lat, lon], 14);
+                  const coord: [number, number] = [lat, lon];
+                  mapRef.current?.flyTo(coord, 14);
                   setSearchTerm(sug.display_name);
                   setSuggestions([]);
+                  setPickup(coord);
                 }}
               >
                 {sug.display_name}
@@ -146,10 +149,12 @@ export default function MapClient() {
       </div>
 
       <MapContainer
-        center={[27.9944024, -81.7602544]} // Florida
-        zoom={13}
-        className="h-3/4 w-full z-0"
-        whenReady={({ target }) => (mapRef.current = target)}
+        center={[27.9944024, -81.7602544]}
+        zoom={9}
+        className="h-[500px] w-full max-w-3xl z-0"
+        whenReady={({ target }) => {
+          mapRef.current = target as LeafletMap;
+        }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -160,7 +165,7 @@ export default function MapClient() {
         {dropoff && <Marker position={dropoff} icon={customIcon} />} 
       </MapContainer>
 
-      <div className="p-4 bg-white shadow">
+      <div className="p-4 bg-background text-foreground shadow border-t border-gray-700 w-full max-w-3xl">
         <h2 className="text-lg font-bold mb-2">Resumen:</h2>
         <p>📍 Recogida: {pickup?.join(", ") || "haz clic en el mapa"}</p>
         <p>🏁 Entrega: {dropoff?.join(", ") || "haz clic en el mapa"}</p>
@@ -171,7 +176,7 @@ export default function MapClient() {
         )}
         {pickup && dropoff && (
           <button
-            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+            className="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
             onClick={() => {
               setPickup(null);
               setDropoff(null);
