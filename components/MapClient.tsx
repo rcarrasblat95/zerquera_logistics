@@ -5,10 +5,11 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  useMapEvents
+  useMapEvents,
 } from "react-leaflet";
 import { useState, useEffect, useRef } from "react";
 import L, { Map as LeafletMap } from "leaflet";
+import { debounce } from "lodash";
 
 const customIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png",
@@ -21,7 +22,8 @@ export default function MapClient() {
   const [dropoff, setDropoff] = useState<[number, number] | null>(null);
   const [distanceMiles, setDistanceMiles] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const mapRef = useRef<LeafletMap>(null);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const mapRef = useRef<LeafletMap | null>(null);
 
   function MapClickHandler() {
     useMapEvents({
@@ -33,6 +35,20 @@ export default function MapClient() {
     });
     return null;
   }
+
+  const fetchSuggestions = debounce(async (query: string) => {
+    if (!query.trim()) {
+      setSuggestions([]);
+      return;
+    }
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        query
+      )}&format=json&addressdetails=1&limit=5`
+    );
+    const data = await res.json();
+    setSuggestions(data);
+  }, 300);
 
   async function handleSearch() {
     if (!searchTerm.trim()) return;
@@ -82,7 +98,6 @@ export default function MapClient() {
         setDistanceMiles(meters / 1609.34);
       }
     }
-
     fetchDistance();
   }, [pickup, dropoff]);
 
@@ -90,36 +105,59 @@ export default function MapClient() {
     <div className="h-screen w-full">
       <div className="p-4 bg-white shadow z-10 relative">
         <h2 className="text-lg font-bold mb-2">Buscar dirección:</h2>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Ej: Times Square, NY"
-            className="border border-gray-300 p-2 rounded w-full"
-          />
-          <button
-            onClick={handleSearch}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            Buscar
-          </button>
+        <div className="relative">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                fetchSuggestions(e.target.value);
+              }}
+              placeholder="Ej: Times Square, NY"
+              className="border border-gray-300 p-2 rounded w-full"
+            />
+            <button
+              onClick={handleSearch}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Buscar
+            </button>
+          </div>
+
+          <ul className="absolute bg-white shadow rounded w-full mt-1 z-20">
+            {suggestions.map((sug, index) => (
+              <li
+                key={index}
+                className="p-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  const lat = parseFloat(sug.lat);
+                  const lon = parseFloat(sug.lon);
+                  mapRef.current?.flyTo([lat, lon], 14);
+                  setSearchTerm(sug.display_name);
+                  setSuggestions([]);
+                }}
+              >
+                {sug.display_name}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
       <MapContainer
-        center={[40.7128, -74.006]}
+        center={[27.9944024, -81.7602544]} // Florida
         zoom={13}
         className="h-3/4 w-full z-0"
-        ref={mapRef}
+        whenReady={({ target }) => (mapRef.current = target)}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>'
         />
         <MapClickHandler />
-        {pickup && <Marker position={pickup} icon={customIcon} />}
-        {dropoff && <Marker position={dropoff} icon={customIcon} />}
+        {pickup && <Marker position={pickup} icon={customIcon} />} 
+        {dropoff && <Marker position={dropoff} icon={customIcon} />} 
       </MapContainer>
 
       <div className="p-4 bg-white shadow">
@@ -131,7 +169,7 @@ export default function MapClient() {
             🧭 Distancia: <strong>{distanceMiles.toFixed(2)} millas</strong>
           </p>
         )}
-        {(pickup && dropoff) && (
+        {pickup && dropoff && (
           <button
             className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
             onClick={() => {
