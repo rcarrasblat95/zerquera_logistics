@@ -193,7 +193,7 @@ export default function MapClient() {
       </div>
 
       {/* Mapa */}
-      <div className="relative w-full h-screen z-0">
+      <div className="relative w-full h-[100dvh] z-0">
         <MapContainer
           center={[27.9944, -81.7602]}
           zoom={9}
