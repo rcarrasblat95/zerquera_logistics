@@ -7,7 +7,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { useState, useEffect, useRef } from "react";
-import L, { Map as LeafletMap, LeafletEvent } from "leaflet";
+import L, { Map as LeafletMap } from "leaflet";
 import { debounce } from "lodash";
 
 const customIcon = new L.Icon({
@@ -103,10 +103,10 @@ export default function MapClient() {
   }, [pickup, dropoff]);
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center justify-center">
-      <div className="p-4 shadow z-10 relative bg-background text-foreground border-b border-gray-700 w-full max-w-3xl">
-        <h2 className="text-lg font-bold mb-2">Buscar dirección:</h2>
-        <div className="relative">
+    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center justify-center relative">
+      {/* Input flotante */}
+      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-md px-4">
+        <div className="bg-[#111]/90 backdrop-blur-md p-4 rounded-xl shadow border border-gray-700">
           <div className="flex gap-2">
             <input
               type="text"
@@ -116,74 +116,80 @@ export default function MapClient() {
                 fetchSuggestions(e.target.value);
               }}
               placeholder="Ej: Times Square, NY"
-              className="border border-gray-600 bg-background text-foreground p-2 rounded w-full"
+              className="w-full p-2 rounded-md border border-gray-600 bg-[#1e1e1e] text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               onClick={handleSearch}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+              className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white transition"
             >
               Buscar
             </button>
           </div>
-
-          <ul className="absolute bg-background text-foreground shadow rounded w-full mt-1 z-20">
-            {suggestions.map((sug, index) => (
-              <li
-                key={index}
-                className="p-2 hover:bg-gray-700 cursor-pointer"
-                onClick={() => {
-                  const lat = parseFloat(sug.lat);
-                  const lon = parseFloat(sug.lon);
-                  const coord: [number, number] = [lat, lon];
-                  mapRef.current?.flyTo(coord, 14);
-                  setSearchTerm(sug.display_name);
-                  setSuggestions([]);
-                  setPickup(coord);
-                }}
-              >
-                {sug.display_name}
-              </li>
-            ))}
-          </ul>
+          {suggestions.length > 0 && (
+            <ul className="mt-2 max-h-48 overflow-auto bg-[#1e1e1e] rounded-md shadow text-sm">
+              {suggestions.map((sug, index) => (
+                <li
+                  key={index}
+                  className="p-2 hover:bg-gray-700 cursor-pointer"
+                  onClick={() => {
+                    const lat = parseFloat(sug.lat);
+                    const lon = parseFloat(sug.lon);
+                    const coord: [number, number] = [lat, lon];
+                    mapRef.current?.flyTo(coord, 14);
+                    setSearchTerm(sug.display_name);
+                    setSuggestions([]);
+                    setPickup(coord);
+                  }}
+                >
+                  {sug.display_name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
-      <MapContainer
-        center={[27.9944024, -81.7602544]}
-        zoom={9}
-        className="h-[500px] w-full max-w-3xl z-0"
-        ref={mapRef as any}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>'
-        />
-        <MapClickHandler />
-        {pickup && <Marker position={pickup} icon={customIcon} />}
-        {dropoff && <Marker position={dropoff} icon={customIcon} />}
-      </MapContainer>
+      {/* Mapa */}
+      <div className="relative w-full h-screen z-0">
+        <MapContainer
+          center={[27.9944024, -81.7602544]}
+          zoom={9}
+          className="h-full w-full z-0"
+          ref={mapRef as any}
+        >
+          <TileLayer
+            url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://www.stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          />
+          <MapClickHandler />
+          {pickup && <Marker position={pickup} icon={customIcon} />}
+          {dropoff && <Marker position={dropoff} icon={customIcon} />}
+        </MapContainer>
 
-      <div className="p-4 bg-background text-foreground shadow border-t border-gray-700 w-full max-w-3xl">
-        <h2 className="text-lg font-bold mb-2">Resumen:</h2>
-        <p>📍 Recogida: {pickup?.join(", ") || "haz clic en el mapa"}</p>
-        <p>🏁 Entrega: {dropoff?.join(", ") || "haz clic en el mapa"}</p>
-        {distanceMiles && (
-          <p>
-            🧭 Distancia: <strong>{distanceMiles.toFixed(2)} millas</strong>
-          </p>
-        )}
-        {pickup && dropoff && (
-          <button
-            className="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-            onClick={() => {
-              setPickup(null);
-              setDropoff(null);
-              setDistanceMiles(null);
-            }}
-          >
-            Reiniciar
-          </button>
-        )}
+        {/* Resumen flotante */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-[1000]">
+          <div className="bg-[#111]/90 backdrop-blur-md p-4 rounded-xl shadow border border-gray-700 space-y-2">
+            <p>📍 Recogida: {pickup?.join(", ") || "haz clic en el mapa"}</p>
+            <p>🏁 Entrega: {dropoff?.join(", ") || "haz clic en el mapa"}</p>
+            {distanceMiles && (
+              <p>
+                🧭 Distancia: <strong>{distanceMiles.toFixed(2)} millas</strong>
+              </p>
+            )}
+            {pickup && dropoff && (
+              <button
+                className="mt-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md w-full"
+                onClick={() => {
+                  setPickup(null);
+                  setDropoff(null);
+                  setDistanceMiles(null);
+                }}
+              >
+                Reiniciar
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
