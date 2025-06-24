@@ -7,7 +7,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { useState, useEffect, useRef } from "react";
-import L, { Map as LeafletMap } from "leaflet";
+import L, { Map as LeafletMap, LeafletEvent } from "leaflet";
 import { debounce } from "lodash";
 
 const customIcon = new L.Icon({
@@ -149,11 +149,11 @@ export default function MapClient() {
       </div>
 
       <MapContainer
-        center={[27.9944024, -81.7602544]}
+        center={[27.9944024, -81.7602544]} // Florida
         zoom={9}
         className="h-[500px] w-full max-w-3xl z-0"
-        whenReady={({ target }) => {
-          mapRef.current = target as LeafletMap;
+        whenReady={(event: LeafletEvent) => {
+          mapRef.current = event.target as LeafletMap;
         }}
       >
         <TileLayer
@@ -161,8 +161,8 @@ export default function MapClient() {
           attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>'
         />
         <MapClickHandler />
-        {pickup && <Marker position={pickup} icon={customIcon} />} 
-        {dropoff && <Marker position={dropoff} icon={customIcon} />} 
+        {pickup && <Marker position={pickup} icon={customIcon} />}
+        {dropoff && <Marker position={dropoff} icon={customIcon} />}
       </MapContainer>
 
       <div className="p-4 bg-background text-foreground shadow border-t border-gray-700 w-full max-w-3xl">
