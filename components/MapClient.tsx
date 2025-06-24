@@ -139,7 +139,7 @@ export default function MapClient() {
   }, [pickup, dropoff]);
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center justify-center relative">
+    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center relative">
       {/* Búsqueda */}
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-md px-4">
         <div className="bg-[#111]/90 backdrop-blur-md p-4 rounded-xl shadow border border-gray-700">
