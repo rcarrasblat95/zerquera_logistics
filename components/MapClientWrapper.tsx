@@ -8,7 +8,7 @@ export default function MapClientWrapper() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
+  
   if (!mounted) return null;
   // Carga dinámica retardada (solo en el cliente, evita SSR)
   const Lazy = require("./MapClient").default;
