@@ -149,12 +149,10 @@ export default function MapClient() {
       </div>
 
       <MapContainer
-        center={[27.9944024, -81.7602544]} // Florida
+        center={[27.9944024, -81.7602544]}
         zoom={9}
         className="h-[500px] w-full max-w-3xl z-0"
-        whenReady={(event: LeafletEvent) => {
-          mapRef.current = event.target as LeafletMap;
-        }}
+        ref={mapRef as any}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
