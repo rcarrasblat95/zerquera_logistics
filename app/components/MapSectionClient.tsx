@@ -39,7 +39,13 @@ export default function MapSectionClient() {
           if (mapRef.current) {
             const bounds = L.latLngBounds(latlngs);
             const offsetBounds = bounds.pad(0.2); // Agrega un 20% extra de espacio alrededor
-            mapRef.current.fitBounds(offsetBounds, { paddingTopLeft: [0, 150], paddingBottomRight: [0, 0] });
+            mapRef.current.fitBounds(offsetBounds, {
+              paddingTopLeft:
+                window.innerWidth >= 768
+                  ? [300, 150] // tablet y desktop
+                  : [0, 150],
+              paddingBottomRight: [0, 0],
+            });
           }
         }
       };

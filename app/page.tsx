@@ -7,9 +7,9 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <HowItWorks />
-      <Testimonials />
-      <Footer />
+      {/* <HowItWorks /> */}
+      {/* <Testimonials /> */}
+      {/* <Footer /> */}
     </>
   );
 }
