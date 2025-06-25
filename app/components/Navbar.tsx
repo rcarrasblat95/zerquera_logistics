@@ -18,15 +18,14 @@ export default function Navbar() {
         <ul className="hidden md:flex space-x-8 text-gray-700 font-medium">
           <li><Link href="/">Home</Link></li>
           <li><Link href="#services">Services</Link></li>
-          <li><Link href="#pricing">Pricing</Link></li>
           <li><Link href="#contact">Contact</Link></li>
           <li><Link href="/estimate">Get estimate</Link></li>
         </ul>
 
         {/* Action Button */}
         <div className="hidden md:block">
-          <Link href="/quote" className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
-            Get a Quote
+          <Link href="/book" className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+            Book Now
           </Link>
         </div>
 

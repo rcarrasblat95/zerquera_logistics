@@ -66,8 +66,10 @@ export default function MapSectionClient() {
       keyboard={false}
       ref={mapRef}
       style={{
-        height: "500px",
+        height: "800px",
+        maxHeight: "800px",
         width: "100%",
+        maxWidth: "1200px",
         display: "block",
         marginLeft: "auto",
         marginRight: "auto",

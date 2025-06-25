@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.13.1",
     "framer-motion": "^12.19.1",
     "geolib": "^3.3.4",
     "leaflet": "^1.9.4",
