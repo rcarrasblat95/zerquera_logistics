@@ -9,5 +9,9 @@ const MapClientWrapper = dynamic(
 );
 
 export default function Page() {
-  return <MapClientWrapper />;
+  return (
+    <div className="w-screen overflow-x-hidden">
+      <MapClientWrapper />
+    </div>
+  );
 }

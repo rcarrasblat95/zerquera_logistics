@@ -1,24 +1,21 @@
 // tailwind.config.js
 module.exports = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
         background: "var(--background)",
-        surface: "var(--surface)",
+        foreground: "var(--foreground)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
+        accent: "var(--accent)",
         error: "var(--error)",
-        foreground: "var(--foreground)",
-        text: {
-          primary: "var(--text-primary)",
-          secondary: "var(--text-secondary)",
-        },
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
       },
     },
   },
   plugins: [],
-};
+}

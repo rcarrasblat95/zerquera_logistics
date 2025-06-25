@@ -1,10 +1,9 @@
 import "./globals.css";
-import "leaflet/dist/leaflet.css";
+import { MapProvider } from "./context/MapContext"; // importa el contexto
 
 export const metadata = {
   title: "Mapa con distancia",
   description: "Next.js + Leaflet + ORS",
-  viewport: "width=device-width, initial-scale=1.0, viewport-fit=cover",
 };
 
 export default function RootLayout({
@@ -14,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="bg-background text-foreground">{children}</body>
+      <body className="w-screen overflow-x-hidden">
+        <MapProvider>{children}</MapProvider>
+      </body>
     </html>
   );
 }

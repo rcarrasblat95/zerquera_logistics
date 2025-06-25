@@ -1,49 +1,35 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
-/* 🌙 Modo claro (por defecto) */
+/* 🌗 Variables personalizadas */
 :root {
   --background: #ffffff;
-  --surface: #f5f5f5;
-  --primary: #6200ee;
-  --secondary: #03dac6;
-  --error: #b00020;
-  --foreground: #171717;
-  --text-primary: #171717;
-  --text-secondary: #5f5f5f;
+  --foreground: #1a1a1a;
+  --primary: #005eff; /* Azul Lugg */
+  --secondary: #f2f2f2;
+  --accent: #00d084; /* Verde de acción */
+  --error: #e63946;
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom);
+  --font-sans: var(--font-geist-sans, 'Inter', sans-serif);
+  --font-mono: var(--font-geist-mono, 'Fira Code', monospace);
 }
 
-/* 🌚 Modo oscuro automático según el sistema */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #121212;
-    --surface: #1e1e1e;
-    --primary: #bb86fc;
-    --secondary: #03dac6;
-    --error: #cf6679;
     --foreground: #ededed;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
+    --primary: #3399ff;
+    --secondary: #1e1e1e;
+    --accent: #00ffb3;
   }
-}
-
-html,
-body,
-#__next {
-  height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 body {
   background-color: var(--background);
-  color: var(--text-primary);
-  font-family: var(--font-sans), Arial, sans-serif;
-  overscroll-behavior-y: none;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
 }
