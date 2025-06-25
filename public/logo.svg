@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.85 36.84">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #1d1d1b;
+        stroke-miterlimit: 10;
+        stroke-width: .25px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #1d1d1b;
+      }
+
+      .cls-2 {
+        font-size: 12px;
+        letter-spacing: .25em;
+      }
+
+      .cls-2, .cls-3 {
+        font-family: LiGothicMed, 'Apple LiGothic';
+      }
+
+      .cls-3 {
+        font-size: 24px;
+        letter-spacing: .05em;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa_1">
+    <g>
+      <path class="cls-1" d="M20.52,3.38h17.67c.24.12.48.24.72.36-.03.31-.05.61-.08.92l-8.36,25.58c-.14.4-.54,1.36-1.54,2.15-.95.75-1.93.93-2.36.98-3.24.03-6.47.06-9.71.1,5.47-8.26,10.94-16.52,16.41-24.79l-24.05,24.69H1.13c-.16-.08-.53-.31-.78-.78-.32-.6-.21-1.17-.18-1.33,9.23-7.04,18.46-14.08,27.69-21.12l-13.27-.19,5.93-6.57Z"/>
+      <g>
+        <text class="cls-3" transform="translate(43.84 19.99)"><tspan x="0" y="0">ZERQUERA</tspan></text>
+        <text class="cls-2" transform="translate(43.84 34.31)"><tspan x="0" y="0">LOGISTICS</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
