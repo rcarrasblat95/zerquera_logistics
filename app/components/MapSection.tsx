@@ -11,7 +11,7 @@ const customIcon = new L.Icon({
   iconAnchor: [12, 41],
 });
 
-function FlyToMarkers({ pickup, dropoff }: { pickup: LatLngExpression | null; dropoff: LatLngExpression | null }) {
+function FlyToMarkers({ pickup, dropoff }: { pickup: [number, number] | null; dropoff: [number, number] | null }) {
   const map = useMap();
   useEffect(() => {
     if (pickup && dropoff) {
@@ -24,7 +24,7 @@ function FlyToMarkers({ pickup, dropoff }: { pickup: LatLngExpression | null; dr
 export default function MapSection() {
   const { pickup, dropoff } = useMapContext();
 
-  const [routeCoords, setRouteCoords] = useState<LatLngExpression[] | null>(null);
+  const [routeCoords, setRouteCoords] = useState<[number, number][] | null>(null);
 
   async function fetchRoute(pickup: LatLngExpression, dropoff: LatLngExpression) {
     try {
