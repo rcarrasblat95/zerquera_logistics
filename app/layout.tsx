@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="w-screen overflow-x-hidden">
+      <body className="overflow-x-hidden">
         <MapProvider>{children}</MapProvider>
       </body>
     </html>
