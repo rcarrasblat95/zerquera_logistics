@@ -33,8 +33,8 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 md:py-32 bg-white text-black">
-      <div className="max-w-2xl w-full space-y-6">
+    <section className="min-h-screen flex flex-col justify-center text-center px-4 py-20 md:py-32 bg-white text-black">
+      <div className="max-w-2xl w-full space-y-6 mx-auto">
         <h1 className="font-bold text-4xl md:text-5xl leading-tight">
           Move <span className="bg-yellow-200 px-2">anything</span><br />
           <span className="text-gray-500 font-semibold">with the push of a button</span>
