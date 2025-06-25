@@ -323,7 +323,7 @@ export default function Book() {
                                         <label className="block text-sm font-semibold text-gray-900 mb-1">
                                             Add additional contacts <span className="text-gray-400 font-normal">(optional)</span>
                                         </label>
-                                        <p className="text-sm text-gray-500 mb-2">Share with them updates about your delivery</p>
+                                        <p className="text-sm text-gray-500 mb-2">They will receive updates about your delivery.</p>
                                         <input
                                             type="tel"
                                             placeholder="Enter phone number…"
@@ -362,9 +362,9 @@ export default function Book() {
                                     </div>
                                 </div>
 
-                                <h1 className="text-3xl font-bold text-gray-900">Personal info</h1>
+                                <h1 className="text-3xl font-bold text-gray-900">Contact information</h1>
                                 <p className="text-gray-500">
-                                    We'll use this information to contact you during your Lugg
+                                    This information is used to stay in touch with you about your delivery.
                                 </p>
 
                                 <div className="w-full space-y-4">
