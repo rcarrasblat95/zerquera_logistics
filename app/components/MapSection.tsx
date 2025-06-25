@@ -26,7 +26,7 @@ export default function MapSection() {
 
   const [routeCoords, setRouteCoords] = useState<[number, number][] | null>(null);
 
-  async function fetchRoute(pickup: LatLngExpression, dropoff: LatLngExpression) {
+  async function fetchRoute(pickup: [number, number], dropoff: [number, number]) {
     try {
       const [startLat, startLng] = pickup;
       const [endLat, endLng] = dropoff;
