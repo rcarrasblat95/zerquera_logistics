@@ -43,8 +43,8 @@ export default function HeroSection() {
           Fully insured. On your schedule. Arriving in as little as 30 minutes.
         </p>
       </div>
-      <div className="relative w-full h-[600px] mt-8 px-4">
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-3xl px-4">
+      <div className="relative w-full h-[800px] mt-24 md:mt-12 px-0 md:px-4">
+        <div className="absolute top-[-80px] md:top-4 left-1/2 transform -translate-x-1/2 z-[1000] w-full max-w-3xl px-4">
           <form autoComplete="off" className="flex flex-col md:flex-row gap-2 bg-white rounded-xl border-2 border-purple-500 p-4 shadow-lg">
             <div className="relative flex-grow">
               <label htmlFor="pickup-input" className="block text-sm text-gray-600 text-left mb-1">Pick up from</label>
