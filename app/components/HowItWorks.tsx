@@ -22,7 +22,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="bg-white text-black py-20 px-6 text-center">
+    <section className="bg-white text-black py-20 px-6 text-center justify-center w-[100%]">
       <h2 className="text-3xl md:text-4xl font-bold mb-12">How it works</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
         {steps.map((step, index) => (

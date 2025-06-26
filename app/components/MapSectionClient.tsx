@@ -75,6 +75,7 @@ export default function MapSectionClient() {
         marginRight: "auto",
         paddingLeft: 0,
         zIndex: 0,
+        borderRadius: "15px"
       }}
     >
       <TileLayer
