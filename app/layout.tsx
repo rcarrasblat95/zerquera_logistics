@@ -2,7 +2,7 @@ import "./globals.css";
 import { MapProvider } from "./context/MapContext"; // importa el contexto
 
 export const metadata = {
-  title: "Mapa con distancia",
+  title: "Zerquera Logistics LLC",
   description: "Next.js + Leaflet + ORS",
 };
 
