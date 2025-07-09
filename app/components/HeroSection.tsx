@@ -40,14 +40,22 @@ export default function HeroSection() {
         <div className="flex flex-col-reverse md:flex-row items-center justify-between max-w-[1200px] w-full mx-auto px-6 md:px-0">
           <div className="flex flex-col justify-center items-start space-y-6 text-left max-w-xl py-8 md:pl-10 md:mr-6">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-black leading-tight">
-              Elevating the <br /> world of <span className="text-blue-700">Logistics.</span>
+              Redefining Local<br />
+              <span className="text-blue-700">Logistics</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
-              We set the standard in transporting goods from A to B.
+              Fast, reliable, and professional delivery solutions for businesses and individuals across Florida.
             </p>
           </div>
           <div
-            className="w-full h-[400px] md:h-[500px] bg-no-repeat bg-[url('/ban_ram.png')] bg-cover bg-left"
+            className="
+            w-full 
+            bg-no-repeat 
+            bg-[url('/ban_ram.png')] 
+            md:bg-left 
+            md:bg-cover
+            sm:bg-[auto_100%] 
+            bg-contain"
             role="img"
             aria-label="Camión de carga"
           />
